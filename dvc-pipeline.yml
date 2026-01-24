@@ -1,0 +1,22 @@
+stages:
+  ingest:
+    cmd: python src/data_ingestion.py
+    deps:
+      - src/data_ingestion.py
+      - data/raw/spam.csv
+    outs:
+      - data/processed/ingested.csv
+
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/clean.csv
+    outs:
+      - models/model.pkl
+
+  eval:
+    cmd: python src/evaluation.py
+    deps:
+      - models/model.pkl
+
